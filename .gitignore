@@ -1,0 +1,17 @@
+# Ignore o arquivo de regras e rastreamento do agente
+AGENT.md
+
+# Saídas e arquivos gerados pela simulação (Synopsys VCS)
+simv
+simv.daidir/
+csrc/
+*.vcd
+*.fsdb
+ucli.key
+vc_hdrs.h
+
+# Saídas e arquivos gerados pela síntese (Design Compiler)
+*.rpt
+*.netlist
+*.svf
+*.log

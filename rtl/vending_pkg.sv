@@ -8,4 +8,4 @@ package vending_pkg;
 	  ERROR = 3'b101
 	} state_t;
 
-endpackage : veding_pkg
+endpackage : vending_pkg
