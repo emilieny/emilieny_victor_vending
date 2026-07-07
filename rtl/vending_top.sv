@@ -78,7 +78,7 @@ module vending_top
   );
 
   // Instanciação do Subtrator de Troco
-  subtrator u_subtrator (
+  subtractor u_subtrator (
     .credit        (w_credit),
     .price         (w_price),
     .change        (change)

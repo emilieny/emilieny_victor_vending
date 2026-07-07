@@ -1,4 +1,4 @@
-module subtrator (
+module subtractor (
   input  logic [7:0] credit,
   input  logic [7:0] price,
   output logic [7:0] change
@@ -8,4 +8,4 @@ module subtrator (
   // mas seu resultado só é salvo pela FSM no estado CHANGE.
   assign change = credit - price;
 
-endmodule : subtrator
+endmodule : subtractor
