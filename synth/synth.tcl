@@ -48,11 +48,13 @@ check_design
 # Relatórios pré-síntese
 # ------------------------------------------------------------
 
-redirect synth/area_pre.rpt {
+file mkdir synth/reports
+
+redirect synth/reports/area_pre.rpt {
   report_area -hierarchy
 }
 
-redirect synth/timing_pre.rpt {
+redirect synth/reports/timing_pre.rpt {
   report_timing -max_paths 10
 }
 
@@ -70,19 +72,21 @@ compile_ultra -no_autoungroup
 # Relatórios pós-síntese
 # ------------------------------------------------------------
 
-redirect synth/area_pos.rpt {
+file mkdir synth/reports
+
+redirect synth/reports/area_pos.rpt {
   report_area -hierarchy
 }
 
-redirect synth/timing_relatorio.rpt {
+redirect synth/reports/timing_relatorio.rpt {
   report_timing -max_paths 10
 }
 
-redirect synth/power.rpt {
+redirect synth/reports/power.rpt {
   report_power
 }
 
-redirect synth/setup_violations.rpt {
+redirect synth/reports/setup_violations.rpt {
   report_constraint -all_violators
 }
 
@@ -104,10 +108,10 @@ puts "\n=================================================="
 puts "SÍNTESE CONCLUÍDA"
 puts "=================================================="
 puts "Arquivos gerados:"
-puts "  synth/area_pos.rpt"
-puts "  synth/timing_relatorio.rpt"
-puts "  synth/power.rpt"
-puts "  synth/setup_violations.rpt"
+puts "  synth/reports/area_pos.rpt"
+puts "  synth/reports/timing_relatorio.rpt"
+puts "  synth/reports/power.rpt"
+puts "  synth/reports/setup_violations.rpt"
 puts "  synth/vending_top_syn.v"
 puts "  synth/vending_top_syn.ddc"
 puts "=================================================="
