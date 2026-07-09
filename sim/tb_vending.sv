@@ -87,15 +87,15 @@ module tb_vending;
     rst = 1'b0;
     repeat (2) @(negedge clk);
   endtask
-
+  initial begin
+      $fsdbDumpfile("waves.fsdb");
+      $fsdbDumpvars(0, tb_vending);
+  end
   // Sinais principais de teste e cenários
   initial begin
     // 6. Geração de waveform
     // Dump para waveform
-    initial begin
-        $fsdbDumpfile("waves.fsdb");
-        $fsdbDumpvars(0, tb_accumulator);
-    end
+
 
     // 2. Reset inicial por 2 ciclos de clock
     reset_dut();
