@@ -19,7 +19,7 @@ module vending_top
   output logic [7:0] change,
   output logic       error,
   output logic [7:0] display,
-  output logic [2:0] state_out
+  output logic [2:0] 
 );
 
   // Fios internos de interconexão (Datapath <-> Control)
