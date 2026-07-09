@@ -91,8 +91,11 @@ module tb_vending;
   // Sinais principais de teste e cenários
   initial begin
     // 6. Geração de waveform
-    $dumpfile("vending.vcd");
-    $dumpvars(0, tb_vending);
+    // Dump para waveform
+    initial begin
+        $fsdbDumpfile("waves.fsdb");
+        $fsdbDumpvars(0, tb_accumulator);
+    end
 
     // 2. Reset inicial por 2 ciclos de clock
     reset_dut();
