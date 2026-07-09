@@ -21,6 +21,8 @@ module tb_vending;
   logic [7:0] change_out;
   logic [7:0] change;
   logic       error;
+  logic [7:0] display;
+  logic [2:0] state_out;
 
   // Instanciação do DUT (Device Under Test)
   vending_top u_dut (
@@ -34,13 +36,15 @@ module tb_vending;
     .dispense    (dispense),
     .change_out  (change_out),
     .change      (change),
-    .error       (error)
+    .error       (error),
+    .display     (display),
+    .state_out   (state_out)
   );
 
   // Altere este valor para executar apenas um cenário por vez:
   // 1 = compra bem-sucedida, 2 = crédito insuficiente,
   // 3 = cancelamento, 4 = estoque zerado
-  localparam int RUN_SCENARIO = 2;
+  localparam int RUN_SCENARIO = 1;
 
   // 5. Tarefa check(expected, actual, label) que reporta PASS/FAIL
   task check(input int expected, input int actual, input string label);
@@ -128,8 +132,8 @@ module tb_vending;
       check(75, change_out, "Cenario 1: change_out=75 (CHANGE)");
 
       @(negedge clk);
-      check(0, u_dut.u_credit_reg.credit, "Cenario 1: credit=0 ao final");
-      check(3'b000, u_dut.state_out, "Cenario 1: FSM retornou a IDLE");
+      check(0, display, "Cenario 1: credit=0 ao final");
+      check(3'b000, state_out, "Cenario 1: FSM retornou a IDLE");
     end else if (RUN_SCENARIO == 2) begin
       // ---------------------------------------------------------
       // Cenário 2: Crédito insuficiente
@@ -141,7 +145,7 @@ module tb_vending;
 
       @(negedge clk);
       check(1, error, "Cenario 2: error=1 ativado");
-      check(3'b101, u_dut.w_current_state, "Cenario 2: FSM foi para ERROR (3'b101)");
+      check(3'b101, state_out, "Cenario 2: FSM foi para ERROR (3'b101)");
 
       cancel_req = 1'b1;
       @(negedge clk);
@@ -167,8 +171,8 @@ module tb_vending;
       cancel_req = 1'b0;
       @(negedge clk);
 
-      check(0, u_dut.u_credit_reg.credit, "Cenario 3: credit=0 apos cancel");
-      check(3'b000, u_dut.state_out, "Cenario 3: FSM retornou a IDLE (3'b000)");
+      check(0, display, "Cenario 3: credit=0 apos cancel");
+      check(3'b000, state_out, "Cenario 3: FSM retornou a IDLE (3'b000)");
     end else if (RUN_SCENARIO == 4) begin
       // ---------------------------------------------------------
       // Cenário 4: Estoque zerado
@@ -190,7 +194,7 @@ module tb_vending;
 
       @(negedge clk);
       check(1, error, "Cenario 4: error=1 (stock=0 na 6a tentativa)");
-      check(3'b101, u_dut.state_out, "Cenario 4: FSM foi para ERROR (3'b101)");
+      check(3'b101, state_out, "Cenario 4: FSM foi para ERROR (3'b101)");
     end else begin
       $display("Cenario invalido: %0d", RUN_SCENARIO);
     end
