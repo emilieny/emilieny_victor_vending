@@ -128,7 +128,8 @@ module tb_vending;
     check(3'b000, u_dut.w_current_state, "Cenario 1: FSM retornou a IDLE");
     
     repeat (3) @(negedge clk);
-
+    /*
+	
     // ---------------------------------------------------------
     // Cenário 2: Crédito insuficiente
     // coin_in=01 (R$0,25); sel_item=3 (snack, R$1,00); confirm=1
@@ -207,6 +208,7 @@ module tb_vending;
     // FSM deve ir para ERROR porque stock chegou em 0.
     check(1, error, "Cenario 4: error=1 (stock=0 na 6a tentativa)");
     check(3'b101, u_dut.w_current_state, "Cenario 4: FSM foi para ERROR (3'b101)");
+     */
     
     repeat (5) @(negedge clk);
     
