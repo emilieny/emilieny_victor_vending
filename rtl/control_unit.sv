@@ -48,7 +48,7 @@ module control_unit
     mem_read    = 1'b0;
     mem_write   = 1'b0;
     dispense    = 1'b0;
-    change_out  = 1'b0;
+    change_valid  = 1'b0;
     error       = 1'b0;
     next_state  = state;
 

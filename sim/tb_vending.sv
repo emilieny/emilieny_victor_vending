@@ -40,7 +40,7 @@ module tb_vending;
   // Altere este valor para executar apenas um cenário por vez:
   // 1 = compra bem-sucedida, 2 = crédito insuficiente,
   // 3 = cancelamento, 4 = estoque zerado
-  localparam int RUN_SCENARIO = 1;
+  localparam int RUN_SCENARIO = 2;
 
   // 5. Tarefa check(expected, actual, label) que reporta PASS/FAIL
   task check(input int expected, input int actual, input string label);
