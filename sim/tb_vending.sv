@@ -18,7 +18,7 @@ module tb_vending;
   
   // Saídas do sistema
   logic       dispense;
-  logic       change_out;
+  logic [7:0] change_out;
   logic [7:0] change;
   logic       error;
 
@@ -125,12 +125,11 @@ module tb_vending;
       check(1, dispense, "Cenario 1: dispense=1 (DISPENSE)");
 
       @(negedge clk);
-      check(1, change_out, "Cenario 1: change_out=1 (CHANGE)");
-      check(75, change, "Cenario 1: troco correto de 75 centavos");
+      check(75, change_out, "Cenario 1: change_out=75 (CHANGE)");
 
       @(negedge clk);
       check(0, u_dut.u_credit_reg.credit, "Cenario 1: credit=0 ao final");
-      check(3'b000, u_dut.w_current_state, "Cenario 1: FSM retornou a IDLE");
+      check(3'b000, u_dut.state_out, "Cenario 1: FSM retornou a IDLE");
     end else if (RUN_SCENARIO == 2) begin
       // ---------------------------------------------------------
       // Cenário 2: Crédito insuficiente
@@ -163,14 +162,13 @@ module tb_vending;
 
       cancel_req = 1'b1;
       @(negedge clk);
-      check(1, change_out, "Cenario 3: change_out=1 no cancelamento");
-      check(200, change, "Cenario 3: devolve troco de 200 centavos");
+      check(200, change_out, "Cenario 3: change_out=200 no cancelamento");
 
       cancel_req = 1'b0;
       @(negedge clk);
 
       check(0, u_dut.u_credit_reg.credit, "Cenario 3: credit=0 apos cancel");
-      check(3'b000, u_dut.w_current_state, "Cenario 3: FSM retornou a IDLE (3'b000)");
+      check(3'b000, u_dut.state_out, "Cenario 3: FSM retornou a IDLE (3'b000)");
     end else if (RUN_SCENARIO == 4) begin
       // ---------------------------------------------------------
       // Cenário 4: Estoque zerado
@@ -192,7 +190,7 @@ module tb_vending;
 
       @(negedge clk);
       check(1, error, "Cenario 4: error=1 (stock=0 na 6a tentativa)");
-      check(3'b101, u_dut.w_current_state, "Cenario 4: FSM foi para ERROR (3'b101)");
+      check(3'b101, u_dut.state_out, "Cenario 4: FSM foi para ERROR (3'b101)");
     end else begin
       $display("Cenario invalido: %0d", RUN_SCENARIO);
     end

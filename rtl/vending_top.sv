@@ -15,9 +15,11 @@ module vending_top
   
   // Saídas do sistema
   output logic       dispense,
-  output logic       change_out,
+  output logic [7:0] change_out,
   output logic [7:0] change,
-  output logic       error
+  output logic       error,
+  output logic [7:0] display,
+  output logic [2:0] state_out
 );
 
   // Fios internos de interconexão (Datapath <-> Control)
@@ -25,6 +27,7 @@ module vending_top
   logic       w_credit_load;
   logic       w_mem_read;
   logic       w_mem_write;
+  logic       w_change_valid;
   state_t     w_current_state;
   
   // Fios internos do Datapath
@@ -44,7 +47,7 @@ module vending_top
     .mem_read      (w_mem_read),
     .mem_write     (w_mem_write),
     .dispense      (dispense),
-    .change_out    (change_out),
+    .change_valid  (w_change_valid),
     .error         (error),
     .current_state (w_current_state)
   );
@@ -86,5 +89,13 @@ module vending_top
     .cancel_req    (cancel_req),
     .change        (change)
   );
+
+  // Top-level change_out é o valor válido apenas quando o controle
+  // sinaliza `w_change_valid` (estado CHANGE ou cancelamento).
+  assign change_out = w_change_valid ? change : 8'd0;
+
+  // Saídas de debug/estado
+  assign display = w_credit;
+  assign state_out = w_current_state;
 
 endmodule : vending_top

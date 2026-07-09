@@ -9,6 +9,7 @@ module subtractor (
 
   // O subtrator é combinacional e calcula o troco o tempo todo,
   // mas no cancelamento ele devolve o valor total inserido.
-  assign change = cancel_req ? credit : (credit - price);
+  // Evita underflow: se credit < price, retorna 0 em vez de wrap-around.
+  assign change = cancel_req ? credit : (credit >= price ? credit - price : 8'd0);
 
 endmodule : subtractor

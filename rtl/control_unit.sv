@@ -21,7 +21,7 @@ module control_unit
   
   // Saídas para o ambiente (usuário)
   output logic dispense,
-  output logic change_out,
+  output logic change_valid,
   output logic error,
   
   // Estado atual (necessário para o credit_reg)
@@ -34,7 +34,7 @@ module control_unit
 
   // Bloco sequencial: transição de estados
   always_ff @(posedge clk) begin
-    if (rst || cancel_req) begin
+    if (rst) begin
       state <= IDLE;
     end else begin
       state <= next_state;
@@ -52,9 +52,11 @@ module control_unit
     error       = 1'b0;
     next_state  = state;
 
+    // Se houver cancelamento em qualquer estado, vamos para CHANGE
     if (cancel_req) begin
-      change_out = 1'b1;
-      next_state = IDLE;
+      change_valid = 1'b1;
+      // deixe o estado sequencial atualizar para CHANGE no próximo clock
+      next_state = CHANGE;
     end else begin
       case (state)
       IDLE: begin
@@ -89,7 +91,7 @@ module control_unit
 
       CHANGE: begin
         mem_read  = 1'b1;
-        change_out = 1'b1;
+        change_valid = 1'b1;
         credit_load = 1'b1; // Sinaliza ao credit_reg para zerar o crédito
         next_state = IDLE;
       end
