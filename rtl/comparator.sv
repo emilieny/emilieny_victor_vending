@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module comparator (
   input  logic [7:0] credit,
   input  logic [7:0] price,

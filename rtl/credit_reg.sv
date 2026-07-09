@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module credit_reg
   import vending_pkg::state_t;
   import vending_pkg::COLLECT;

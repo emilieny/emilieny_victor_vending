@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 package vending_pkg;
 	typedef enum logic [2:0] {
 	  IDLE = 3'b000,

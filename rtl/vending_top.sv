@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module vending_top
   import vending_pkg::*;
 (
