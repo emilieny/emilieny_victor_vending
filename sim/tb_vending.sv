@@ -129,6 +129,9 @@ module tb_vending;
       check(1, dispense, "Cenario 1: dispense=1 (DISPENSE)");
 
       @(negedge clk);
+      // Como o change_out agora é registrado (flip-flop), ele leva 1 ciclo a mais 
+      // para aparecer na saída em relação ao sinal combinacional interno.
+      @(negedge clk);
       check(75, change_out, "Cenario 1: change_out=75 (CHANGE)");
 
       @(negedge clk);

@@ -90,9 +90,15 @@ module vending_top
     .change        (change)
   );
 
-  // Top-level change_out é o valor válido apenas quando o controle
-  // sinaliza `w_change_valid` (estado CHANGE ou cancelamento).
-  assign change_out = w_change_valid ? change : 8'd0;
+  // Top-level change_out é registrado conforme a especificação.
+  // Ele captura o valor do troco quando a FSM sinaliza `w_change_valid`.
+  always_ff @(posedge clk) begin
+    if (rst) begin
+      change_out <= 8'd0;
+    end else if (w_change_valid) begin
+      change_out <= change;
+    end
+  end
 
   // Saídas de debug/estado
   assign display = w_credit;
