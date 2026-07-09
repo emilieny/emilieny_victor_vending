@@ -4,6 +4,7 @@ module credit_reg
   import vending_pkg::state_t;
   import vending_pkg::COLLECT;
   import vending_pkg::CHANGE;
+  import vending_pkg::IDLE;
 (
   input  logic        clk,
   input  logic        rst,          // reset sincrono, ativo alto
@@ -32,11 +33,9 @@ module credit_reg
     end
     else if (credit_load) begin
       unique case (current_state)
-        COLLECT: credit <= credit + coin_value(coin_in);
-        CHANGE:  credit <= 8'd0;
-        default: credit <= credit; // credit_load so deveria vir ativo
-                                    // nesses dois estados; mantem valor
-                                    // em qualquer outro caso por seguranca
+        IDLE, COLLECT: credit <= credit + coin_value(coin_in);
+        CHANGE:        credit <= 8'd0;
+        default:       credit <= credit; // Mantém valor por segurança
       endcase
     end
   end

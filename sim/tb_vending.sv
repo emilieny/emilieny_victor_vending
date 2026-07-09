@@ -22,7 +22,7 @@ module tb_vending;
   logic [7:0] change;
   logic       error;
   logic [7:0] display;
-  logic [2:0] state_out;
+  logic [2:0] state_out; // 0 = IDLE, 1 = COLLECT, 2 = CHECK, 3 = DISPENSE, 4 = ERROR, 5 = CHANGE
 
   // Instanciação do DUT (Device Under Test)
   vending_top u_dut (

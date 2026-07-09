@@ -52,24 +52,26 @@ module control_unit
     error       = 1'b0;
     next_state  = state;
 
-    // Se houver cancelamento em qualquer estado, vamos para CHANGE
+    // Se houver cancelamento, devolvemos o troco e vamos IMEDIATAMENTE para IDLE
     if (cancel_req) begin
       change_valid = 1'b1;
-      // deixe o estado sequencial atualizar para CHANGE no próximo clock
-      next_state = CHANGE;
+      next_state = IDLE;
     end else begin
       case (state)
       IDLE: begin
         if (coin_insert) begin
+          credit_load = 1'b1;
           next_state = COLLECT;
-        end else if (buy_req) begin
-          next_state = CHECK;
         end
       end
 
       COLLECT: begin
-        credit_load = 1'b1;
-        next_state = IDLE; // Retorna para esperar mais moedas ou requisição de compra
+        if (coin_insert) begin
+          credit_load = 1'b1;
+        end
+        if (buy_req) begin
+          next_state = CHECK;
+        end
       end
 
       CHECK: begin
