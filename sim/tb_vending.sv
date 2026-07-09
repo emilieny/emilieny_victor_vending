@@ -37,6 +37,11 @@ module tb_vending;
     .error       (error)
   );
 
+  // Altere este valor para executar apenas um cenário por vez:
+  // 1 = compra bem-sucedida, 2 = crédito insuficiente,
+  // 3 = cancelamento, 4 = estoque zerado
+  localparam int RUN_SCENARIO = 1;
+
   // 5. Tarefa check(expected, actual, label) que reporta PASS/FAIL
   task check(input int expected, input int actual, input string label);
     if (expected === actual) begin
@@ -87,15 +92,18 @@ module tb_vending;
     rst = 1'b0;
     repeat (2) @(negedge clk);
   endtask
+
+  // Geração de waveform
+  // Dump para waveform
   initial begin
       $fsdbDumpfile("waves.fsdb");
       $fsdbDumpvars(0, tb_vending);
   end
+
+
   // Sinais principais de teste e cenários
   initial begin
-    // 6. Geração de waveform
-    // Dump para waveform
-
+   
 
     // 2. Reset inicial por 2 ciclos de clock
     reset_dut();
@@ -104,112 +112,91 @@ module tb_vending;
     $display("           INICIANDO TESTES VENDING          ");
     $display("=============================================\n");
 
-    // ---------------------------------------------------------
-    // Cenário 1: Compra bem-sucedida com troco
-    // coin_in=11 (R$1,00); sel_item=0 (café, R$0,25); confirm=1
-    // Verificação esperada: dispense=1; change_out=75; credit=0 ao final
-    // ---------------------------------------------------------
-    $display("-> Cenario 1: Compra bem-sucedida (Cafe com R$ 1,00)");
-    buy_item(2'b00, '{2'b11}); 
-    
-    // O pulso de buy_req abaixou. A FSM agora está em CHECK.
-    // No próximo ciclo a FSM deve ir para DISPENSE
-    @(negedge clk); 
-    check(1, dispense, "Cenario 1: dispense=1 (DISPENSE)");
-    
-    // No próximo ciclo a FSM deve ir para CHANGE
-    @(negedge clk); 
-    check(1, change_out, "Cenario 1: change_out=1 (CHANGE)");
-    check(75, change, "Cenario 1: troco correto de 75 centavos");
-    
-    // No próximo ciclo a FSM volta para IDLE e o crédito é zerado
-    @(negedge clk);
-    check(0, u_dut.u_credit_reg.credit, "Cenario 1: credit=0 ao final");
-    check(3'b000, u_dut.w_current_state, "Cenario 1: FSM retornou a IDLE");
-    
-    repeat (3) @(negedge clk);
-    /*
-	
-    // ---------------------------------------------------------
-    // Cenário 2: Crédito insuficiente
-    // coin_in=01 (R$0,25); sel_item=3 (snack, R$1,00); confirm=1
-    // Verificação esperada: error=1; FSM vai para ERROR
-    // ---------------------------------------------------------
-    $display("\n-> Cenario 2: Credito insuficiente (Snack com R$ 0,25)");
-    buy_item(2'b11, '{2'b01}); // sel_item=3 (snack)
-    
-    // FSM está em CHECK. No próximo ciclo vai para ERROR
-    @(negedge clk); 
-    check(1, error, "Cenario 2: error=1 ativado");
-    check(3'b101, u_dut.w_current_state, "Cenario 2: FSM foi para ERROR (3'b101)");
-    
-    // Como a FSM retorna para IDLE diretamente (segundo o RTL), garantimos limpar o crédito
-    cancel_req = 1'b1;
-    @(negedge clk);
-    cancel_req = 1'b0;
-    repeat (2) @(negedge clk);
-
-    // ---------------------------------------------------------
-    // Cenário 3: Cancelamento
-    // coin_in=11; coin_in=11; cancel=1
-    // Verificação esperada: credit=0; FSM retorna a IDLE; change_out=200
-    // ---------------------------------------------------------
-    $display("\n-> Cenario 3: Cancelamento apos inserir R$ 2,00");
-    apply_coin(2'b11); // Insere R$ 1,00
-    apply_coin(2'b11); // Insere + R$ 1,00
-    
-    // Confere se acumulou 200 centavos
-    @(negedge clk);
-    check(200, u_dut.u_credit_reg.credit, "Cenario 3: Credito acumulado e de 200 centavos");
-    
-    // Pede cancelamento
-    cancel_req = 1'b1;
-    
-    // NOTA: O comportamento de devolver o troco no cancelamento usando change_out=1
-    // não foi implementado no RTL atual (que força o IDLE diretamente e zera o crédito).
-    // O testbench irá falhar nesse check específico, reportando a inconsistência.
-    check(1, change_out, "Cenario 3: change_out=1 no cancelamento");
-    // Verificamos qual o valor de troco o subtrator apresenta
-    check(200, change, "Cenario 3: devolve troco de 200 centavos");
-    
-    @(negedge clk);
-    cancel_req = 1'b0;
-    
-    check(0, u_dut.u_credit_reg.credit, "Cenario 3: credit=0 apos cancel");
-    check(3'b000, u_dut.w_current_state, "Cenario 3: FSM retornou a IDLE (3'b000)");
-
-    repeat (3) @(negedge clk);
-
-    // ---------------------------------------------------------
-    // Cenário 4: Estoque zerado
-    // Comprar café 5 vezes (estoque=5); tentar 6ª vez
-    // Verificação esperada: Na 6ª vez: error=1 (stock=0)
-    // ---------------------------------------------------------
-    // Aplicamos reset para garantir que o estoque de café volte a 5, 
-    // já que o Cenário 1 consumiu 1 café.
-    reset_dut();
-    
-    $display("\n-> Cenario 4: Estoque zerado (Comprar cafe 5 vezes e falhar na 6a)");
-    
-    for (int i = 0; i < 5; i++) begin
-      $display("   Comprando cafe %0d/5 (estoque restando)...", i+1);
+    if (RUN_SCENARIO == 1) begin
+      // ---------------------------------------------------------
+      // Cenário 1: Compra bem-sucedida com troco
+      // coin_in=11 (R$1,00); sel_item=0 (café, R$0,25); confirm=1
+      // Verificação esperada: dispense=1; change_out=75; credit=0 ao final
+      // ---------------------------------------------------------
+      $display("-> Cenario 1: Compra bem-sucedida (Cafe com R$ 1,00)");
       buy_item(2'b00, '{2'b11});
-      
-      // A FSM passa por: CHECK -> DISPENSE -> CHANGE -> IDLE
-      // Esperamos esses ciclos para podermos fazer a proxima compra
-      repeat(3) @(negedge clk); 
+
+      @(negedge clk);
+      check(1, dispense, "Cenario 1: dispense=1 (DISPENSE)");
+
+      @(negedge clk);
+      check(1, change_out, "Cenario 1: change_out=1 (CHANGE)");
+      check(75, change, "Cenario 1: troco correto de 75 centavos");
+
+      @(negedge clk);
+      check(0, u_dut.u_credit_reg.credit, "Cenario 1: credit=0 ao final");
+      check(3'b000, u_dut.w_current_state, "Cenario 1: FSM retornou a IDLE");
+    end else if (RUN_SCENARIO == 2) begin
+      // ---------------------------------------------------------
+      // Cenário 2: Crédito insuficiente
+      // coin_in=01 (R$0,25); sel_item=3 (snack, R$1,00); confirm=1
+      // Verificação esperada: error=1; FSM vai para ERROR
+      // ---------------------------------------------------------
+      $display("\n-> Cenario 2: Credito insuficiente (Snack com R$ 0,25)");
+      buy_item(2'b11, '{2'b01});
+
+      @(negedge clk);
+      check(1, error, "Cenario 2: error=1 ativado");
+      check(3'b101, u_dut.w_current_state, "Cenario 2: FSM foi para ERROR (3'b101)");
+
+      cancel_req = 1'b1;
+      @(negedge clk);
+      cancel_req = 1'b0;
+      repeat (2) @(negedge clk);
+    end else if (RUN_SCENARIO == 3) begin
+      // ---------------------------------------------------------
+      // Cenário 3: Cancelamento
+      // coin_in=11; coin_in=11; cancel=1
+      // Verificação esperada: credit=0; FSM retorna a IDLE; change_out=200
+      // ---------------------------------------------------------
+      $display("\n-> Cenario 3: Cancelamento apos inserir R$ 2,00");
+      apply_coin(2'b11);
+      apply_coin(2'b11);
+
+      @(negedge clk);
+      check(200, u_dut.u_credit_reg.credit, "Cenario 3: Credito acumulado e de 200 centavos");
+
+      cancel_req = 1'b1;
+      @(negedge clk);
+      check(1, change_out, "Cenario 3: change_out=1 no cancelamento");
+      check(200, change, "Cenario 3: devolve troco de 200 centavos");
+
+      cancel_req = 1'b0;
+      @(negedge clk);
+
+      check(0, u_dut.u_credit_reg.credit, "Cenario 3: credit=0 apos cancel");
+      check(3'b000, u_dut.w_current_state, "Cenario 3: FSM retornou a IDLE (3'b000)");
+    end else if (RUN_SCENARIO == 4) begin
+      // ---------------------------------------------------------
+      // Cenário 4: Estoque zerado
+      // Comprar café 5 vezes (estoque=5); tentar 6ª vez
+      // Verificação esperada: Na 6ª vez: error=1 (stock=0)
+      // ---------------------------------------------------------
+      reset_dut();
+
+      $display("\n-> Cenario 4: Estoque zerado (Comprar cafe 5 vezes e falhar na 6a)");
+
+      for (int i = 0; i < 5; i++) begin
+        $display("   Comprando cafe %0d/5 (estoque restando)...", i+1);
+        buy_item(2'b00, '{2'b11});
+        repeat(3) @(negedge clk);
+      end
+
+      $display("   Tentando a 6a compra de cafe (deve falhar por falta de estoque)...");
+      buy_item(2'b00, '{2'b11});
+
+      @(negedge clk);
+      check(1, error, "Cenario 4: error=1 (stock=0 na 6a tentativa)");
+      check(3'b101, u_dut.w_current_state, "Cenario 4: FSM foi para ERROR (3'b101)");
+    end else begin
+      $display("Cenario invalido: %0d", RUN_SCENARIO);
     end
-    
-    $display("   Tentando a 6a compra de cafe (deve falhar por falta de estoque)...");
-    buy_item(2'b00, '{2'b11});
-    
-    // FSM em CHECK, avaliando estoque.
-    @(negedge clk); 
-    // FSM deve ir para ERROR porque stock chegou em 0.
-    check(1, error, "Cenario 4: error=1 (stock=0 na 6a tentativa)");
-    check(3'b101, u_dut.w_current_state, "Cenario 4: FSM foi para ERROR (3'b101)");
-     */
-    
+
     repeat (5) @(negedge clk);
     
     $display("\n=============================================");

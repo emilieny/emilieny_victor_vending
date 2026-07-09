@@ -52,7 +52,11 @@ module control_unit
     error       = 1'b0;
     next_state  = state;
 
-    case (state)
+    if (cancel_req) begin
+      change_out = 1'b1;
+      next_state = IDLE;
+    end else begin
+      case (state)
       IDLE: begin
         if (coin_insert) begin
           next_state = COLLECT;
@@ -94,7 +98,8 @@ module control_unit
       end
 
       default: next_state = IDLE;
-    endcase
+      endcase
+    end
   end
 
 endmodule : control_unit

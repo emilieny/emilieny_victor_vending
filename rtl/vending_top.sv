@@ -83,6 +83,7 @@ module vending_top
   subtractor u_subtrator (
     .credit        (w_credit),
     .price         (w_price),
+    .cancel_req    (cancel_req),
     .change        (change)
   );
 
