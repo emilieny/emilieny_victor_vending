@@ -69,6 +69,9 @@ run: compile
 wave:
 	verdi -ssf waves.fsdb &
 
+waveverdi:
+	verdi -ssf waves.fsdb &
+
 # ==========================================
 # Síntese
 # ==========================================

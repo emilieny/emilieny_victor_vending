@@ -81,12 +81,14 @@ module control_unit
       end
 
       DISPENSE: begin
+        mem_read  = 1'b1;
         mem_write = 1'b1;
         dispense  = 1'b1;
         next_state = CHANGE;
       end
 
       CHANGE: begin
+        mem_read  = 1'b1;
         change_out = 1'b1;
         credit_load = 1'b1; // Sinaliza ao credit_reg para zerar o crédito
         next_state = IDLE;
