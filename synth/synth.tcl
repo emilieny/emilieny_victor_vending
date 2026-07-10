@@ -69,7 +69,8 @@ puts "\n=================================================="
 puts "INICIANDO SÍNTESE"
 puts "=================================================="
 
-compile_ultra -no_autoungroup
+compile_ultra -area_effort high
+set_max_area 0
 
 # ------------------------------------------------------------
 # Relatórios pós-síntese
