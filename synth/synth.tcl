@@ -32,7 +32,7 @@ link
 # Constraints
 # ------------------------------------------------------------
 
-source synth/vending.sdc
+read_sdc synth/vending.sdc
 
 # ------------------------------------------------------------
 # Verificação do design
@@ -42,7 +42,10 @@ puts "\n=================================================="
 puts "CHECK DESIGN"
 puts "=================================================="
 
-check_design
+file mkdir synth/reports
+redirect synth/reports/check_design.rpt {
+  check_design
+}
 
 # ------------------------------------------------------------
 # Relatórios pré-síntese
