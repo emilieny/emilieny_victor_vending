@@ -1,5 +1,3 @@
-# Ignore o arquivo de regras e rastreamento do agente
-AGENT.md
 # Ignorar a lib
 libs/
 # Saídas e arquivos gerados pela simulação (Synopsys VCS)
