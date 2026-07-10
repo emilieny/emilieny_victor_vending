@@ -7,9 +7,9 @@ module subtractor (
   output logic [7:0] change
 );
 
-  // O subtrator é combinacional e calcula o troco o tempo todo,
-  // mas no cancelamento ele devolve o valor total inserido.
-  // Evita underflow: se credit < price, retorna 0 em vez de wrap-around.
+  // O subtrator calcula o troco o tempo inteiro,
+  // no cancelamento ele devolve o valor total inserido.
+  // se credit < price, retorna 0
   assign change = cancel_req ? credit : (credit >= price ? credit - price : 8'd0);
 
 endmodule : subtractor

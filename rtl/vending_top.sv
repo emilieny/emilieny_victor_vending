@@ -90,8 +90,8 @@ module vending_top
     .change        (change)
   );
 
-  // Top-level change_out é registrado conforme a especificação.
-  // Ele captura o valor do troco quando a FSM sinaliza `w_change_valid`.
+  // change_out é registrado conforme a especificação.
+  // captura o valor do troco quando a FSM sinaliza `w_change_valid`.
   always_ff @(posedge clk) begin
     if (rst) begin
       change_out <= 8'd0;

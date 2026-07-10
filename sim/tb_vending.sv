@@ -41,12 +41,10 @@ module tb_vending;
     .state_out   (state_out)
   );
 
-  // Altere este valor para executar apenas um cenário por vez:
-  // 1 = compra bem-sucedida, 2 = crédito insuficiente,
-  // 3 = cancelamento, 4 = estoque zerado
+  // metodo para mudar os cenarios de forma mais intuitiva
   localparam int RUN_SCENARIO = 4;
 
-  // 5. Tarefa check(expected, actual, label) que reporta PASS/FAIL
+  // Tarefa check(expected, actual, label) reporta PASS/FAIL
   task check(input int expected, input int actual, input string label);
     if (expected === actual) begin
       $display("[PASS] %s", label);
@@ -55,26 +53,26 @@ module tb_vending;
     end
   endtask
 
-  // 3. Tarefa apply_coin(value) que aplica uma moeda e aguarda 1 ciclo
+  // apply_coin(value) aplica uma moeda e aguarda 1 ciclo
   task apply_coin(input logic [1:0] value);
     @(negedge clk);
     coin_in = value;
     coin_insert = 1'b1;
     @(negedge clk);
     coin_insert = 1'b0;
-    // Aguarda mais um ciclo para a FSM ir pro COLLECT e o registrador somar o crédito
+    // Aguarda um ciclo para a FSM ir pro COLLECT e o registrador somar o crédito
     @(negedge clk);
     coin_in = 2'b00;
   endtask
 
-  // 4. Tarefa buy_item(item, coins[]) que executa uma compra completa
+  // buy_item(item, coins[]) executa uma compra completa
   task buy_item(input logic [1:0] item, input logic [1:0] coins[]);
     // Aplica todas as moedas da lista
     foreach (coins[i]) begin
       apply_coin(coins[i]);
     end
     
-    // Envia o comando de confirmar compra
+    // comando de confirmar compra
     @(negedge clk);
     item_sel = item;
     buy_req = 1'b1;
@@ -84,7 +82,7 @@ module tb_vending;
     buy_req = 1'b0;
   endtask
 
-  // Tarefa auxiliar para resetar o DUT e isolar os cenários
+  // reset do DUT e isolar os cenários
   task reset_dut();
     rst = 1'b1;
     coin_insert = 1'b0;
@@ -109,7 +107,7 @@ module tb_vending;
   initial begin
    
 
-    // 2. Reset inicial por 2 ciclos de clock
+    // Reset inicial por 2 ciclos de clock
     reset_dut();
 
     $display("\n=============================================");

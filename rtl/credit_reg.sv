@@ -41,4 +41,3 @@ module credit_reg
   end
 
 endmodule : credit_reg
-// Force sync for Linux server

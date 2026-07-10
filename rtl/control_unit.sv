@@ -32,7 +32,7 @@ module control_unit
   
   assign current_state = state;
 
-  // Bloco sequencial: transição de estados
+  // Bloco sequencial
   always_ff @(posedge clk) begin
     if (rst) begin
       state <= IDLE;
@@ -41,9 +41,9 @@ module control_unit
     end
   end
 
-  // Bloco combinacional: próxima transição e saídas da FSM (Moore)
+  // Bloco combinacional
   always_comb begin
-    // Valores padrão das saídas para evitar latches
+    // Valores saídas 
     credit_load = 1'b0;
     mem_read    = 1'b0;
     mem_write   = 1'b0;
@@ -52,7 +52,7 @@ module control_unit
     error       = 1'b0;
     next_state  = state;
 
-    // Se houver cancelamento, devolvemos o troco e vamos IMEDIATAMENTE para IDLE
+    // Se houver cancelamento, devolvemos o troco e vamos para IDLE
     if (cancel_req) begin
       change_valid = 1'b1;
       next_state = IDLE;
@@ -76,7 +76,6 @@ module control_unit
 
       CHECK: begin
         mem_read = 1'b1;
-        // memory.sv é combinacional para leitura, can_sell estará pronto neste mesmo ciclo
         if (can_sell) begin
           next_state = DISPENSE;
         end else begin
@@ -94,13 +93,13 @@ module control_unit
       CHANGE: begin
         mem_read  = 1'b1;
         change_valid = 1'b1;
-        credit_load = 1'b1; // Sinaliza ao credit_reg para zerar o crédito
+        credit_load = 1'b1; 
         next_state = IDLE;
       end
 
       ERROR: begin
+      // Permanece em ERROR aguardando o usuário apertar cancel_req
         error = 1'b1;
-        // Permanece em ERROR aguardando o usuário apertar cancel_req
         next_state = ERROR;
       end
 

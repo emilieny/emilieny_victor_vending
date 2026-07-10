@@ -33,7 +33,7 @@ module memory (
     end
   end
 
-  // Leitura combinacional para alinhar com a FSM de 6 estados (Moore)
+  // Leitura combinacional para alinhar com a FSM
   // price e stock permanecem disponíveis para o subtrator e para o comparador.
   always_comb begin
     price = mem_array[item_sel][15:8];
