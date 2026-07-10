@@ -22,7 +22,7 @@ module tb_vending;
   logic [7:0] change;
   logic       error;
   logic [7:0] display;
-  logic [2:0] state_out; // 0 = IDLE, 1 = COLLECT, 2 = CHECK, 3 = DISPENSE, 4 = ERROR, 5 = CHANGE
+  logic [2:0] state_out; // 0 = IDLE, 1 = COLLECT, 2 = CHECK, 3 = DISPENSE, 4 = CHANGE, 5 = ERROR
 
   // Instanciação do DUT (Device Under Test)
   vending_top u_dut (
@@ -44,7 +44,7 @@ module tb_vending;
   // Altere este valor para executar apenas um cenário por vez:
   // 1 = compra bem-sucedida, 2 = crédito insuficiente,
   // 3 = cancelamento, 4 = estoque zerado
-  localparam int RUN_SCENARIO = 1;
+  localparam int RUN_SCENARIO = 4;
 
   // 5. Tarefa check(expected, actual, label) que reporta PASS/FAIL
   task check(input int expected, input int actual, input string label);
