@@ -198,6 +198,17 @@ module tb_vending;
       @(negedge clk);
       check(1, error, "Cenario 4: error=1 (stock=0 na 6a tentativa)");
       check(3'b101, state_out, "Cenario 4: FSM foi para ERROR (3'b101)");
+      
+      // Aciona o cancelamento para receber o dinheiro de volta após o erro
+      cancel_req = 1'b1;
+      @(negedge clk);
+      check(100, change_out, "Cenario 4: change_out=100 apos cancelar do ERROR");
+
+      cancel_req = 1'b0;
+      @(negedge clk);
+
+      check(0, display, "Cenario 4: credit=0 apos cancel");
+      check(3'b000, state_out, "Cenario 4: FSM retornou a IDLE (3'b000)");
     end else begin
       $display("Cenario invalido: %0d", RUN_SCENARIO);
     end

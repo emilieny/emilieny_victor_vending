@@ -100,7 +100,8 @@ module control_unit
 
       ERROR: begin
         error = 1'b1;
-        next_state = IDLE;
+        // Permanece em ERROR aguardando o usuário apertar cancel_req
+        next_state = ERROR;
       end
 
       default: next_state = IDLE;
