@@ -6,7 +6,7 @@
 # Carregar configuração
 # ------------------------------------------------------------
 
-source synth/.synopsys_dc.setup
+read_db ./libs/saed32rvt_tt1p05v25c.db
 
 # ------------------------------------------------------------
 # Ler RTL
@@ -69,7 +69,9 @@ puts "\n=================================================="
 puts "INICIANDO SÍNTESE"
 puts "=================================================="
 
-compile_ultra -area_effort high
+file mkdir synth/reports
+set_svf synth/reports/default.svf
+compile_ultra -no_autoungroup -area_effort high
 set_max_area 0
 
 # ------------------------------------------------------------
@@ -98,6 +100,7 @@ redirect synth/reports/setup_violations.rpt {
 # Exportar netlist
 # ------------------------------------------------------------
 
+write -format verilog -hierarchy -output synth/vending_top_netlist.v
 write -format verilog -hierarchy -output synth/vending_top_syn.v
 
 write -format ddc -hierarchy -output synth/vending_top_syn.ddc
@@ -116,6 +119,8 @@ puts "  synth/reports/area_pos.rpt"
 puts "  synth/reports/timing_relatorio.rpt"
 puts "  synth/reports/power.rpt"
 puts "  synth/reports/setup_violations.rpt"
+puts "  synth/reports/default.svf"
+puts "  synth/vending_top_netlist.v"
 puts "  synth/vending_top_syn.v"
 puts "  synth/vending_top_syn.ddc"
 puts "=================================================="
