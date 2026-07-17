@@ -1,0 +1,76 @@
+
+
+##################################################################################
+# Copyright 2002-2026 Synopsys, Inc.  All rights reserved.
+# This Synopsys product and all associated documentation and files are
+# proprietary to Synopsys, Inc. and may only be used pursuant to the terms
+# and conditions of a written license agreement with Synopsys, Inc. All other
+# use, reproduction, modification, or distribution of the Synopsys product or
+# the associated documentation or files is strictly prohibited.
+##################################################################################
+
+
+## SVF file read: /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/reports/default.svf
+
+guide \
+  -tool { Design Compiler } \
+  -version { X-2025.06-SP2 built Aug 27, 2025 } \
+  -SVF { 21.230 } \
+  -timestamp { Thu Jul 16 22:31:20 2026 } 
+
+## Operation Id: 1
+guide_environment \
+  { { dc_product_version X-2025.06-SP2 } \
+    { dc_product_build_date { Aug 27, 2025 } } \
+    { bus_dimension_separator_style ][ } \
+    { bus_extraction_style %s\[%d:%d\] } \
+    { bus_multiple_separator_style , } \
+    { bus_naming_style %s[%d] } \
+    { bus_range_separator_style : } \
+    { dc_allow_rtl_pg false } \
+    { hdlin_allow_4state_parameters TRUE } \
+    { hdlin_unified_rtl_read FALSE } \
+    { hdlin_enable_hier_naming FALSE } \
+    { hdlin_enable_upf_compatible_naming FALSE } \
+    { hdlin_vhdl_preserve_case FALSE } \
+    { hdlin_generate_naming_style %s_%d } \
+    { hdlin_generate_separator_style _ } \
+    { hdlin_infer_enumerated_types FALSE } \
+    { hdlin_interface_port_downto FALSE } \
+    { hdlin_optimize_enum_types FALSE } \
+    { hdlin_preserve_sequential none } \
+    { hdlin_sverilog_std 2017 } \
+    { hdlin_sv_packages dont_chain } \
+    { hdlin_sv_union_member_naming FALSE } \
+    { hdlin_vhdl_std 2008 } \
+    { hdlin_vrlg_std 2005 } \
+    { hdlin_v2005_replication_semantics TRUE } \
+    { hdlin_while_loop_iterations 4096 } \
+    { hdlin_enable_verilog_configurations_canonical TRUE } \
+    { hdlin_enable_verilog_configurations_array_n_block TRUE } \
+    { hdlin_enable_persistent_macros FALSE } \
+    { hdlin_persistent_macros_filename syn_auto_generated_macro_file.sv } \
+    { link_portname_allow_period_to_match_underscore false } \
+    { link_portname_allow_square_bracket_to_match_underscore false } \
+    { port_complement_naming_style %s_BAR } \
+    { simplified_verification_mode FALSE } \
+    { template_naming_style %s_%p } \
+    { template_parameter_style %s%d } \
+    { template_separator_style _ } \
+    { upf_iso_filter_elements_with_applies_to ENABLE } \
+    { upf_isols_allow_instances_in_elements true } \
+    { link_library { * your_library.db } } \
+    { target_library your_library.db } \
+    { search_path { . /Tools/synopsys/syn/X-2025.06-SP2/libraries/syn /Tools/synopsys/syn/X-2025.06-SP2/dw/syn_ver /Tools/synopsys/syn/X-2025.06-SP2/dw/sim_ver } } \
+    { hdlin_fmsvf_enable_div_by_pow2 true } \
+    { synopsys_root /Tools/synopsys/syn/X-2025.06-SP2 } \
+    { cwd /home/victor.medeiros/Documentos/emilieny_victor_vending } \
+    { current_design vending_top } \
+    { write_file { -format verilog -hierarchy -output synth/vending_top_netlist.v } } \
+    { write_file { -format verilog -hierarchy -output synth/vending_top_syn.v } } \
+    { write_file { -format ddc -hierarchy -output synth/vending_top_syn.ddc } } \
+    { write_file { -format ddc -hierarchy -output synth/vending_top.ddc } } \
+    { compile_seqmap_propagate_high_effort true } } 
+
+setup
+
