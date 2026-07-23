@@ -105,7 +105,13 @@ clean_sim:
 		DVEfiles \
 		.vlogan* \
 		*.fsdb \
-		*.log
+		*.log \
+		*.pvl \
+		*.svf \
+		FM_INFO \
+		cksum_dir \
+		*.mr \
+		*.syn \
 
 # ==========================================
 # Limpeza total

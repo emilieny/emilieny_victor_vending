@@ -42,10 +42,10 @@ set synopsys_auto_setup true
 ########################################################################
 
 # set_dpx_options \
-    -protocol <PROTOCOL> \
-    -submit_command <COMMAND> \
-    -max_workers <NUMBER> \
-    -max_cores <NUMBER>     
+#    -protocol <PROTOCOL> \
+#   -submit_command <COMMAND> \
+#    -max_workers <NUMBER> \
+#    -max_cores <NUMBER>     
 
 ########################################################################
 # Setup for instantiated or function-inferred DesignWare components
@@ -58,6 +58,7 @@ set hdlin_dwroot /Tools/synopsys/syn/X-2025.06-SP2
 ########################################################################
 
 set search_path " \
+	/home/victor.medeiros/Documentos/emilieny_victor_vending/rtl \
 	/home/victor.medeiros/Documentos/emilieny_victor_vending/. \
 	/Tools/synopsys/syn/X-2025.06-SP2/libraries/syn \
 	/Tools/synopsys/syn/X-2025.06-SP2/dw/syn_ver \
@@ -73,7 +74,7 @@ set_svf ./synth/reports/default.svf
 # Read in the libraries
 ########################################################################
 
-read_db -technology_library your_library.db
+read_db -technology_library ./libs/saed32rvt_tt1p05v25c.db
 
 
 ########################################################################
@@ -88,7 +89,7 @@ read_db -technology_library your_library.db
 # No guide_environment analyze commands found in SVF
 
 # USER INTERVENTION REQUIRED HERE:
-# set_top vending_top
+set_top vending_top
 
 
 ########################################################################
@@ -98,12 +99,12 @@ read_db -technology_library your_library.db
 ########################################################################
 
 # USER INTERVENTION REQUIRED HERE:
-# read_verilog -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top_netlist.v
-# read_verilog -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top_syn.v
-# read_ddc -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top_syn.ddc
-# read_ddc -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top.ddc
+read_verilog -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top_netlist.v
+read_verilog -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top_syn.v
+read_ddc -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top_syn.ddc
+read_ddc -i /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/vending_top.ddc
 # USER INTERVENTION REQUIRED HERE:
-# set_top vending_top
+set_top vending_top
 
 ########################################################################
 # Verify and Report

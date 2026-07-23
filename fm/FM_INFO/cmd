@@ -1,6 +1,0 @@
-/Tools/synopsys/fm/X-2025.06-SP3/linux64/fm/bin/fm_shell_exec -r /Tools/synopsys/fm/X-2025.06-SP3 -f formality.tcl 
-
-Version    = X-2025.06-SP3
-Build      = X-2025.06-SP3-Dev-10190302
-Build date = Oct 13, 2025
-Run date   = Thu Jul 16 23:44:29 2026 -03

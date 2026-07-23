@@ -16,9 +16,13 @@ guide \
   -tool { Design Compiler } \
   -version { X-2025.06-SP2 built Aug 27, 2025 } \
   -SVF { 21.230 } \
-  -timestamp { Thu Jul 16 22:31:20 2026 } 
+  -timestamp { Wed Jul 22 23:02:59 2026 } 
 
 ## Operation Id: 1
+guide_environment \
+  { { precompile_db_list /Tools/synopsys/syn/X-2025.06-SP2/libraries/syn/gtech.db } } 
+
+## Operation Id: 2
 guide_environment \
   { { dc_product_version X-2025.06-SP2 } \
     { dc_product_build_date { Aug 27, 2025 } } \
@@ -59,14 +63,372 @@ guide_environment \
     { template_separator_style _ } \
     { upf_iso_filter_elements_with_applies_to ENABLE } \
     { upf_isols_allow_instances_in_elements true } \
-    { link_library { * your_library.db } } \
-    { target_library your_library.db } \
-    { search_path { . /Tools/synopsys/syn/X-2025.06-SP2/libraries/syn /Tools/synopsys/syn/X-2025.06-SP2/dw/syn_ver /Tools/synopsys/syn/X-2025.06-SP2/dw/sim_ver } } \
+    { link_library { * saed32rvt_tt1p05v25c.db dw_foundation.sldb } } \
+    { target_library saed32rvt_tt1p05v25c.db } \
+    { search_path { . libs } } \
     { hdlin_fmsvf_enable_div_by_pow2 true } \
     { synopsys_root /Tools/synopsys/syn/X-2025.06-SP2 } \
     { cwd /home/victor.medeiros/Documentos/emilieny_victor_vending } \
     { current_design vending_top } \
-    { write_file { -format verilog -hierarchy -output synth/vending_top_netlist.v } } \
+    { compile_seqmap_propagate_high_effort true } } 
+
+## Operation Id: 3
+guide_constant \
+  -design { control_unit } \
+  -verify_scope { vending_top } \
+  -type { svfConstantTypeUnread } \
+  -constant0 { svfObjectPort mem_read } 
+
+## Operation Id: 4
+guide_change_names \
+  -design { memory } \
+  { { cell gt_29 gt_x_1 } } 
+
+## Operation Id: 5
+guide_change_names \
+  -design { memory } \
+  { { cell sub_30 sub_x_2 } } 
+
+## Operation Id: 6
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][8] } \
+  { 0 } 
+
+## Operation Id: 7
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][9] } \
+  { 0 } 
+
+## Operation Id: 8
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][10] } \
+  { 1 } 
+
+## Operation Id: 9
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][11] } \
+  { 0 } 
+
+## Operation Id: 10
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][12] } \
+  { 0 } 
+
+## Operation Id: 11
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][13] } \
+  { 1 } 
+
+## Operation Id: 12
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][14] } \
+  { 1 } 
+
+## Operation Id: 13
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[3][15] } \
+  { 0 } 
+
+## Operation Id: 14
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][8] } \
+  { 1 } 
+
+## Operation Id: 15
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][9] } \
+  { 1 } 
+
+## Operation Id: 16
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][10] } \
+  { 0 } 
+
+## Operation Id: 17
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][11] } \
+  { 1 } 
+
+## Operation Id: 18
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][12] } \
+  { 0 } 
+
+## Operation Id: 19
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][13] } \
+  { 0 } 
+
+## Operation Id: 20
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][14] } \
+  { 1 } 
+
+## Operation Id: 21
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[2][15] } \
+  { 0 } 
+
+## Operation Id: 22
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][8] } \
+  { 0 } 
+
+## Operation Id: 23
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][9] } \
+  { 1 } 
+
+## Operation Id: 24
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][10] } \
+  { 0 } 
+
+## Operation Id: 25
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][11] } \
+  { 0 } 
+
+## Operation Id: 26
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][12] } \
+  { 1 } 
+
+## Operation Id: 27
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][13] } \
+  { 1 } 
+
+## Operation Id: 28
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][14] } \
+  { 0 } 
+
+## Operation Id: 29
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[1][15] } \
+  { 0 } 
+
+## Operation Id: 30
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][8] } \
+  { 1 } 
+
+## Operation Id: 31
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][9] } \
+  { 0 } 
+
+## Operation Id: 32
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][10] } \
+  { 0 } 
+
+## Operation Id: 33
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][11] } \
+  { 1 } 
+
+## Operation Id: 34
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][12] } \
+  { 1 } 
+
+## Operation Id: 35
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][13] } \
+  { 0 } 
+
+## Operation Id: 36
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][14] } \
+  { 0 } 
+
+## Operation Id: 37
+guide_reg_constant \
+  -design { memory } \
+  -replaced { svfTrue } \
+  { mem_array_reg[0][15] } \
+  { 0 } 
+
+## Operation Id: 38
+guide_change_names \
+  -design { credit_reg } \
+  { { cell add_36 add_x_1 } } 
+
+## Operation Id: 39
+guide_change_names \
+  -design { subtractor } \
+  { { cell gte_13 gte_x_1 } } 
+
+## Operation Id: 40
+guide_change_names \
+  -design { subtractor } \
+  { { cell sub_13 sub_x_2 } } 
+
+## Operation Id: 41
+guide_change_names \
+  -design { comparator } \
+  { { cell gte_10 gte_x_1 } } 
+
+## Operation Id: 42
+guide_change_names \
+  -design { comparator } \
+  { { cell gt_10 gt_x_2 } } 
+
+## Operation Id: 43
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[1][7] } \
+  { 0 } 
+
+## Operation Id: 44
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[3][7] } \
+  { 0 } 
+
+## Operation Id: 45
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[2][7] } \
+  { 0 } 
+
+## Operation Id: 46
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[0][7] } \
+  { 0 } 
+
+## Operation Id: 47
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[1][6] } \
+  { 0 } 
+
+## Operation Id: 48
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[3][6] } \
+  { 0 } 
+
+## Operation Id: 49
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[2][6] } \
+  { 0 } 
+
+## Operation Id: 50
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[0][6] } \
+  { 0 } 
+
+## Operation Id: 51
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[1][5] } \
+  { 0 } 
+
+## Operation Id: 52
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[3][5] } \
+  { 0 } 
+
+## Operation Id: 53
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[2][5] } \
+  { 0 } 
+
+## Operation Id: 54
+guide_reg_constant \
+  -design { vending_top } \
+  -replaced { svfTrue } \
+  { u_memory/mem_array_reg[0][5] } \
+  { 0 } 
+
+## Operation Id: 55
+guide_environment \
+  { { postcompile_db_list /home/victor.medeiros/Documentos/emilieny_victor_vending/libs/saed32rvt_tt1p05v25c.db } } 
+
+## Operation Id: 56
+guide_environment \
+  { { write_file { -format verilog -hierarchy -output synth/vending_top_netlist.v } } \
     { write_file { -format verilog -hierarchy -output synth/vending_top_syn.v } } \
     { write_file { -format ddc -hierarchy -output synth/vending_top_syn.ddc } } \
     { write_file { -format ddc -hierarchy -output synth/vending_top.ddc } } \

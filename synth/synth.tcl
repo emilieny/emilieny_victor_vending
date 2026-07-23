@@ -6,7 +6,10 @@
 # Carregar configuração
 # ------------------------------------------------------------
 
-read_db ./libs/saed32rvt_tt1p05v25c.db
+set search_path [list . libs]
+set target_library saed32rvt_tt1p05v25c.db
+set synthetic_library dw_foundation.sldb
+set link_library "* $target_library $synthetic_library"
 
 # ------------------------------------------------------------
 # Ler RTL
@@ -71,8 +74,11 @@ puts "=================================================="
 
 file mkdir synth/reports
 set_svf synth/reports/default.svf
-compile_ultra -no_autoungroup -area_effort high
+
+# A restrição de área DEVE vir antes do compile_ultra!
 set_max_area 0
+
+compile_ultra -no_autoungroup
 
 # ------------------------------------------------------------
 # Relatórios pós-síntese
