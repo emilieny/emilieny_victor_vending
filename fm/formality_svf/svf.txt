@@ -10,13 +10,13 @@
 ##################################################################################
 
 
-## SVF file read: /home/victor.medeiros/Documentos/emilieny_victor_vending/synth/reports/default.svf
+## SVF file read: /home/emilieny.silva/projetos/emilieny_victor_vending/synth/reports/default.svf
 
 guide \
   -tool { Design Compiler } \
   -version { X-2025.06-SP2 built Aug 27, 2025 } \
   -SVF { 21.230 } \
-  -timestamp { Wed Jul 22 23:02:59 2026 } 
+  -timestamp { Thu Jul 23 17:17:04 2026 } 
 
 ## Operation Id: 1
 guide_environment \
@@ -68,7 +68,7 @@ guide_environment \
     { search_path { . libs } } \
     { hdlin_fmsvf_enable_div_by_pow2 true } \
     { synopsys_root /Tools/synopsys/syn/X-2025.06-SP2 } \
-    { cwd /home/victor.medeiros/Documentos/emilieny_victor_vending } \
+    { cwd /home/emilieny.silva/projetos/emilieny_victor_vending } \
     { current_design vending_top } \
     { compile_seqmap_propagate_high_effort true } } 
 
@@ -424,7 +424,7 @@ guide_reg_constant \
 
 ## Operation Id: 55
 guide_environment \
-  { { postcompile_db_list /home/victor.medeiros/Documentos/emilieny_victor_vending/libs/saed32rvt_tt1p05v25c.db } } 
+  { { postcompile_db_list /home/emilieny.silva/projetos/emilieny_victor_vending/libs/saed32rvt_tt1p05v25c.db } } 
 
 ## Operation Id: 56
 guide_environment \
