@@ -80,6 +80,7 @@ synth:
 # ==========================================
 # Síntese DFT
 # ==========================================
+.PHONY: dft
 dft:
 	dc_shell -f $(DFT_DIR)/dft_insert.tcl
 
