@@ -4,6 +4,7 @@
 RTL_DIR   = rtl
 SIM_DIR   = sim
 SYNTH_DIR = synth
+DFT_DIR = dft
 
 # ==========================================
 # Arquivos
@@ -75,6 +76,14 @@ wave:
 # ==========================================
 synth:
 	dc_shell -f $(SYNTH_DIR)/synth.tcl
+
+# ==========================================
+# Síntese DFT
+# ==========================================
+dft:
+	dc_shell -f $(DFT_DIR)/dft_insert.tcl
+
+
 
 # ==========================================
 # Limpeza da síntese

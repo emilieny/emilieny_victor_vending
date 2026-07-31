@@ -4,11 +4,11 @@
 # ============================================================
 
 # 1. Biblioteca de células — a mesma target_library da síntese
-set target_library {typical.db}
-set link_library {* typical.db}
+set target_library {saed32rvt_tt1p05v25c.db}
+set link_library {* $target_library}
 
 # 2. Lê a netlist funcional já sintetizada (golden desta atividade)
-read_verilog ../synth/vending_top_netlist.v
+read_verilog ./synth/vending_top_netlist.v
 current_design vending_top
 link
 
